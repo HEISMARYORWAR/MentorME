@@ -6,7 +6,8 @@
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]  // ✅ ADD THIS LINE
   },
   "include": ["src"],
   "exclude": ["node_modules"]
