@@ -17,6 +17,7 @@ import userRoutes from "./routes/userroutes";
 import mentorRoutes from "./routes/mentorRoutes";
 import requestRoutes from "./routes/requestRoutes";
 import sessionRoutes from "./routes/sessionRoutes";
+import reviewRoutes from "./routes/reviewRoutes";
 
 // API Routes
 app.use("/api/auth", authRoutes);         // Register & Login
@@ -24,7 +25,7 @@ app.use("/api/user", userRoutes);         // Profile Management
 app.use("/api/mentors", mentorRoutes);    // Mentor Discovery
 app.use("/api/requests", requestRoutes);  // Mentorship Requests
 app.use("/api/sessions", sessionRoutes);
-
+app.use("/api/reviews", reviewRoutes);
 
 // Test route
 app.get("/", (req, res) => {

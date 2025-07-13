@@ -21,3 +21,5 @@ export const authenticate = (req: any, res: any, next: any) => {
     res.status(401).json({ message: "Invalid or expired token" });
   }
 };
+export default authenticate;
+

@@ -26,3 +26,4 @@ router.patch("/:reviewId/report", authenticate, reportReview);
 router.get("/:mentorId", getMentorReviews);
 
 export default router;
+

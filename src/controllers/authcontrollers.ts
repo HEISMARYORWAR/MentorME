@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 import RequestModel from "../models/mentorshipRequest"; // ✅ ADD THIS LINE
-
+import { AuthenticatedRequest } from "../types"; // if you're using custom typing
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 // REGISTER
@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
 };
 
 // GET PROFILE
-export const getProfile = async (req: Request, res: Response): Promise<void> => {
+export const getProfile = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
   try {
     const userId = req.user?.id;
     const user = await User.findById(userId).select("-password");
@@ -81,6 +81,7 @@ export const getProfile = async (req: Request, res: Response): Promise<void> => 
     res.status(500).json({ message: "Error getting profile", error: err });
   }
 };
+
 
 // RESPOND TO REQUEST
 export const respondToRequest = async (req: Request, res: Response): Promise<void> => {

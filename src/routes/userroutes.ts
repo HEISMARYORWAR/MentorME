@@ -1,10 +1,23 @@
-import express from "express";
-import { getProfile, updateProfile } from "../controllers/userController";
-import { authenticate } from "../middlewares/authMiddleware";
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
+import { AuthenticatedRequest } from "../types";
 
-const router = express.Router();
+const JWT_SECRET = process.env.JWT_SECRET!;
 
-router.get("/profile", authenticate, getProfile);
-router.put("/profile", authenticate, updateProfile);
+const authenticate = (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
+  const token = req.header("Authorization")?.replace("Bearer ", "");
+  if (!token) {
+    res.status(401).json({ message: "No token provided" });
+    return;
+  }
 
-export default router;
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string };
+    req.user = { id: decoded.id, role: decoded.role };
+    next();
+  } catch (err) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+export default authenticate;
